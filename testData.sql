@@ -1,5 +1,5 @@
 USE opt_mb;
-INSERT INTO angle (mb1, mb2, angle) VALUES 
+INSERT INTO route (mb1, mb2, angle) VALUES 
 ( 0xc0a80101, 0xc0a80102, 12 ),
 ( 0xc0a80101, 0xc0a80103, 13 ),
 ( 0xc0a80102, 0xc0a80101, 21 ),
@@ -7,10 +7,15 @@ INSERT INTO angle (mb1, mb2, angle) VALUES
 ( 0xc0a80103, 0xc0a80102, 32 ),
 ( 0xc0a80103, 0xc0a80101, 31 );
 
-INSERT INTO ip_mb (server, mb) VALUES
+INSERT INTO ip_mb (server, mb ) VALUES
 ( 0xc0a80110, 0xc0a80101 ),
 ( 0xc0a80111, 0xc0a80101 ),
 ( 0xc0a80120, 0xc0a80102 ),
 ( 0xc0a80121, 0xc0a80102 ),
 ( 0xc0a80130, 0xc0a80103 ),
 ( 0xc0a80131, 0xc0a80103 );
+
+INSERT INTO mb_mac( mb, mac ) VALUES
+( 0xc0a80101, 0x123456789001 ),
+( 0xc0a80102, 0x123456789002 ),
+( 0xc0a80103, 0x123456789003 );

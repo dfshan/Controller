@@ -47,12 +47,18 @@ def FindMb( dst ):
     cursor = conn.cursor()
     count = cursor.execute( "select mb from ip_mb where server=%d" % dst )
 
-    mbIp=0;
+    mbIp=0
+    mac=0
     if count==1:
-        mbIp=cursor.fetchone()[0]
+        data=cursor.fetchone()
+        mbIp=data[0]
+        
+    count = cursor.execute( "select mac from mb_mac where mb=%d" % mbIp )
+    if count==1:
+        mac=cursor.fetchone()[0]
     cursor.close()
     conn.close()
-    return mbIp
+    return mbIp, mac
         
         
 def FindRoute( mb1, mb2 ):
@@ -65,7 +71,7 @@ def FindRoute( mb1, mb2 ):
     '''
     conn = MySQLdb.connect( host=host, user=user, passwd=passwd, db=db )
     cursor = conn.cursor()
-    count = cursor.execute( "select angle from angle where mb1 = %d and mb2 = %d " % (mb1, mb2) )
+    count = cursor.execute( "select angle from route where mb1 = %d and mb2 = %d " % (mb1, mb2) )
     angle=0
     if( count == 1 ):
         angle=cursor.fetchone()[0]

@@ -27,13 +27,14 @@ class Handler( DatagramRequestHandler ):
         
         # type 2 is the request
         if sockType==2:
-            angle = 1;
+            angle = 1
+            mbMac = 0
             if len(data) == 5:
                 dstIp = struct.unpack( "!I", data[1:] )[0]
-                dstMb = db.FindMb(dstIp);
+                dstMb, mbMac = db.FindMb(dstIp);
                 angle = db.FindRoute( src, dstMb)
             # socket.sendto( struct.pack( "!B", angle ), self.client_address )
-            self.return1BData( angle )
+            socket.sendto( struct.pack("!BIH", angle, mbMac/0x10000, mbMac%0x10000 ), self.client_address )
             
             
     def return1BData(self, data):
@@ -44,7 +45,7 @@ class Server( ThreadingMixIn, UDPServer ):
     pass 
 
 host='192.168.1.52'
-port=7890
+port=1522
 
 def ip2long (ip):
     '''change the string format ip to unsigned long format'''
